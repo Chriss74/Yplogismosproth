@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Υπολογισμός Προθεσμιών</title>
+<style>
+    html{
+        height:100%;    
+        background-image:linear-gradient(#f9fbfc,#2db1d2,#33A1FD);
+      
+    }
+    
+    body{
+    height:90%;
+    font-family:"Lucida Sans Unicode",serif;
+    font-size:calc(8px + 0.5vw);
+   
+    
+    }
+    header {
+    font-size:xx-large;
+    height:10%;
+    min-height:60px;
+    width:98%;
+    text-align:center;
+    border-color:black;
+    border-style:hidden hidden solid hidden ;
+    border-width:3px;
+    }
+    
+    header,article,nav,aside{
+    overflow:auto;   
+    }
+    
+    article,nav,aside{
+    height:90%;
+    margin-bottom:1%;
+    line-height:2;
+    }
+    
+    
+    
+    article{
+    width:auto;
+    border-color:black;
+    border-style: hidden solid solid solid;
+    border-width:3px;
+    background: linear-gradient(white, #FFFACD);
+    }
+    
+    
+    nav, aside{
+    line-height:1.6;
+    text-align:center;
+    }
+    
+    aside {
+    width:20%;
+    float:left;
+    padding:1%;
+        }
+        
+    nav{
+    width:auto;
+    float:right;
+    padding:1%;
+  
+    
+        }
+    
+        
+    footer {
+        height:4%;
+        font-size:x-large;
+        background:#31393C;
+        text-align:center;
+        color:white;
+        width:100%;
+        position:absolute;
+        bottom:0;
+         }
+    form{
+        text-align: center;
+        font-size:x-large;
+        }
+    button{
+        font-size:     x-large;
+        background:    #cccccc;
+        background:    linear-gradient(#eeeeee, #999999);
+        border:        1px solid #000000;
+        border-radius: 5px;
+        box-shadow:    0 1px #444444;
+        padding:       8px 20px;
+        color:         #000000;
+        display:       inline-block;
+        font:          normal bold 24px/1 "Calibri", sans-serif;
+        text-align:    center;
+        text-shadow:   1px 1px #ffffff;
+    }
+    input {
+        font-size:large;
+        border: 2px solid black;
+        width:5%;
+        }
+
+    ul {
+        font-size: large; 
+        list-style-type:none;
+        text-align:center;
+    }
+    ol{
+         columns: 4;
+        -webkit-columns: 4;
+        -moz-columns: 4;
+        text-align:center;
+    }
+
+    .paside{
+        overflow:auto;
+        font-size:smaller;
+    }
+
+    .link{
+        font-size:larger;
+    }       
+    .center{
+        text-align:center;
+        
+    }   
+    .tooltip {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted black;
+}
+.tooltiptext{
+    font-size:small;
+    width:200%;
+    z-index:1;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  background: white;
+  border:1px black;
+  text-align: center;
+  padding: 5px 0;
+  position: absolute;
+  overflow:visible;
+  top: 100%;
+  left: 50%; 
+  margin-left: -200px;
+  
+  
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+
+.linkfb{
+    width:90%;
+    height:15%; 
+}
+</style>
+</head> 
+
+<body>
+
+<header >
+    
+    ΥΠΟΛΟΓΙΣΜΟΣ ΠΡΟΘΕΣΜΙΩΝ ΓΙΑ ΔΙΟΙΚΗΤΙΚΟΥΣ ΔΙΚΑΣΤΕΣ
+</header>
+
+<nav >
+    
+    <br><br>
+    Δικαστικές Διακοπές<br>1-31/8 <br>
+    <button onclick="a()">Υποβολή</button>
+    <br><br>
+    Δικαστικές διακοπές <br>1/7-15/9<br>
+    <button onclick="c()">Υποβολή</button>
+    <br><br>
+    Χωρίς δικαστικές <br>διακοπές<br>
+    <button onclick="b()">Υποβολή</button>
+    <br><br><br><br><br><br>
+    <button onclick="ResetForm()">Καθαρισμός</button>
+    <br><br>
+    <a href="Readme.html">Οδηγίες και Όροι Χρήσης</a>
+    </nav>
+<aside onload="DeleteFunction()">
+  <div> 
+    <h1>Επικοινωνία</h1>
+    <p class="paside">Για καθημερινή ενημέρωση σχετικά με νομοθεσία, νομολογία κι άλλα νέα που αφορούν τα τακτικά διοικητικά δικαστήρια, επισκεφθείτε την <a href="https://ddikastes.gr" class="link">ιστοσελίδα μας </a>
+   <a href="https://ddikastes.gr"><img src="dioikitikoidikastes.JPG" alt="dioikhtikoidikastes" height="65%" width="95%" ></h1></a>
+   
+  <p class="paside">Βρείτε μας στο <a href="https://www.facebook.com/ddikastes/" class="link">facebook</a>
+  <a href="https://www.facebook.com/ddikastes/" class="link"><img src="ddikastesfb.jpg" class="linkfb"alt="Διοικητικοί Δικαστές"></a>
+  </p>
+
+    
+    
+    <div > 
+    <h1>Πληροφοριες</h1>
+    <p class="paside">Το πρόγραμμα αυτό είναι μια ερασιτεχνική προσπάθεια υπολογισμού των προθεσμιών, προσαρμοσμένο στις ανάγκες των Διοικητικών Δικαστών.
+    <br>Οι δικαστικές διακοπές υπολογίζονται για την προθεσμία σε ημέρες. Οι μήνες και τα έτη προστίθενται μετά. 
+   <br>Υπολογίζονται και τα δίσεκτα έτη και οι σταθερές γιορτές του έτους.
+   <br>Δημιουργείται μια λίστα με τις ημέρες της προθεσμίας για επαλήθευση από τον χρήστη. Υπενθυμίζουμε ότι η ευθύνη για το σωστό υπολογισμό των προθεσμιών ανήκει στον χρήστη.
+   <br>Στείλτε μας σχόλια για τυχόν προβλήματα ή ιδέες στο φμπ για να το βελτιώσουμε </p></div>
+
+    
+   
+</aside>
+
+    <article >
+    <br><br>
+    <form id="myForm">
+        <div class="tooltip">  Ημέρα Έναρξης:
+  <span class="tooltiptext">Εισάγετε την ημέρα του εναρκτήριου γεγονότος της προθεσμίας. Αποδεκτές τιμές ο αριθμός των ημερών του μήνα που θα επιλέξετε. </span> </div>
+      
+        <input type="number" name="day" value=1 min="1" max="31">
+        <form id="myForm">
+        <div class="tooltip">  Μήνας Έναρξης:
+  <span class="tooltiptext">Εισάγετε τον μήνα του εναρκτήριου γεγονότος της προθεσμίας. Αποδεκτές τιμές 1-12 </span> </div>
+        <input type="number" name="month" value=1 min="1" max="12">
+       <form id="myForm">
+        <div class="tooltip"> Έτος Έναρξης: 
+  <span class="tooltiptext">Εισάγετε το έτος του εναρκτήριου γεγονότος της προθεσμίας. Αποδεκτές τιμές 2000-2050 </span> </div>
+        <input type="number"name="year" value=2019 min="2000" max="2050"><br><br>
+  <form id="myForm">
+        <div class="tooltip">  Ημέρες Προθεσμίας:
+  <span class="tooltiptext">Εισάγετε τις ημέρες της προθεσμίας. Αποδεκτές τιμές 0-364. </span> </div>
+        <input type="number" name="prothdays" value=0 min="0" max="360">
+   <form id="myForm">
+        <div class="tooltip">  Μήνες Προθεσμίας:
+  <span class="tooltiptext">Εισάγετε τους μήνες της προθεσμίας. Αποδεκτές τιμές  0-240. Εάν έχετε εισάγει και ημέρες, θα υπολογισθούν πρώτα οι ημέρες και ακολούθως θα προστεθούν οι μήνες </span> </div>
+        <input type="number" name="prothmonths" value=0  min="0" max="12">
+    <div class="tooltip">  Έτη Προθεσμίας:
+  <span class="tooltiptext">Εισάγετε τα έτη της προθεσμίας. Αποδεκτές τιμές 0-100. Εάν έχετε εισάγει και ημέρες και μήνες, θα υπολογισθούν πρώτα οι ημέρες, θα προστεθούν οι μήνες και τέλος θα προστεθούν τα έτη</span> </div>
+        <input type="number"name="prothyears" value=0 min="0" max="20">
+    
+       </form>   
+       <br>
+        <div><ul id="apotelesma"></ul></div>   
+        <div id="dionysiou" class="center"></div>
+        <div id="argies" class="center"></div> 
+         <div><ol id="analytikahead"></ol></div> 
+         <div><ol id="analytika"></ol></div>
+       
+         </article>
+      <footer onload="DeleteFunction()">  Διοικητικοί Δικαστές - :) Chrissa </footer>
+      
+  <script>
+  
+var January=[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31];
+var March=[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31];
+var April=[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30];
+var May=[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31];
+var June=[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30];
+var July=[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31];
+var August=[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31];
+var September=[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30];
+var October=[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31];
+var November=[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30];
+var December=[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31];
+var monthlist=["Ιανουάριος","Φεβρουάριος","Μάρτιος","Απρίλιος","Μάιος","Ιούνιος","Ιούλιος","Αύγουστος","Σεπτέμβριος","Οκτώβριος", "Νοέμβριος","Δεκέμβριος"]
+
+
+
+function a() {
+
+let day=myForm.day.value
+day=Number(day)
+let month=myForm.month.value
+month=Number(month)
+if ((month>12)||(month<1)){
+    alert ("Άκυρος μήνας")
+    return 
+    }
+let year=myForm.year.value
+year=Number(year)
+let prothdays=myForm.prothdays.value
+prothdays=Number(prothdays)
+let prothmonths=myForm.prothmonths.value
+prothmonths=Number(prothmonths)
+let prothyears=myForm.prothyears.value
+prothyears=Number(prothyears)
+let resday
+let resmonth;
+let resyear;
+let res;
+let analytikaArr=[]
+let monthNames;
+let February;
+if (year%4!==0) {February=[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28]}
+else if (year%100!==0) {February=[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29]}
+else if (year%400!==0) {February=[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28]}
+else {February=[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29]}
+monthNames=[January, February, March, April, May, June, July, August,September, October, November, December]
+resmonth=month-1;
+resday=monthNames[month-1][day-1];
+resyear=year;
+
+
+
+if ((day>monthNames[resmonth].length)||(day<1)){
+     alert ("Ακυρη μέρα")
+     return
+}
+if((prothdays>364)||(prothmonths>240)||(prothyears>100)){
+   alert ("Η προθεσμία είναι πολύ μεγάλη") 
+   return 
+}
+if((prothdays<0)||(prothmonths<0)||(prothyears<0)){
+   alert ("Άκυρη προθεσμία") 
+   return 
+}
+if ((year>2050)||(year<2000)){
+    alert ("Science Fiction Detected")
+    return
+}
+
+for (i=0;i<prothdays;i++){
+    if ((resday<monthNames[resmonth].length)&&(resmonth!==7)){
+        resday+=1;
+        analytikaArr.push("<li>"+ resday+ "/"+(resmonth+1)+"/ "+resyear+"</li>")
+    }
+    else {
+        if (resmonth==6){
+            resmonth+=2;
+            resday=1;
+            analytikaArr.push("<li><u><b>"+monthlist[resmonth]+"<br>"+ " "+resday+"/ "+(resmonth+1)+"/ "+resyear+"</u></b></li>")
+        }
+        
+        else {
+            if (resmonth<11){
+        resmonth=resmonth+1;
+        resday=1;
+        analytikaArr.push("<li><u><b>"+monthlist[resmonth]+"<br>"+ " "+resday+"/ "+(resmonth+1)+"/ "+resyear+"</u></b></li>")
+   
+                 }else{
+                    resyear++
+                    resmonth=0
+                    resday=1
+                   analytikaArr.push("<li><u><b>"+monthlist[resmonth]+"<br>"+ " "+resday+"/ "+(resmonth+1)+"/ "+resyear+"</u></b></li>")
+             }  
+             }
+            }
+if (resyear%4!==0) {monthNames[1]=[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28]}
+else if (resyear%100!==0) {monthNames[1]=[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29]}
+else if (resyear%400!==0) {monthNames[1]=[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28]}
+else {monthNames[1]=[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29]}   
+   
+}
+resmonth+=prothmonths
+if (resmonth>12){
+    resyear=resyear+Math.floor(resmonth/12);
+    resmonth=(resmonth%12);
+    }
+
+if (resmonth==7){
+resmonth=8}
+
+resyear+=prothyears
+
+
+if ((resday==29)&&(resmonth==1)){
+
+    if ((resyear%4!==0)&&(resyear%400!==0)){
+        resday=1
+        resmonth=2
+    }
+
+    }
+res=[resday,resmonth+1,resyear]
+var daylist=["Κυριακή (μη εργάσιμη)","Δευτέρα", "Τρίτη", "Τετάρτη", "Πέμπτη", "Παρασκευή", "Σάββατο (μη εργάσιμη)"];
+let d=new Date(resyear, resmonth, resday).getDay();
+document.getElementById("apotelesma").innerHTML ="Λήξη Προθεσμίας: "+ "<li>"+daylist[d]+" "+res.join("/")+ "</li>"; 
+document.getElementById("analytikahead").innerHTML="Αναλυτικά:"
+document.getElementById("analytika").innerHTML = analytikaArr.join("");
+document.getElementById("argies").innerHTML= "Για να δείτε τις κινητές αργίες του έτους "+ resyear + " επισκεφθείτε την ιστοσελίδα <a href=\"https://argies.gr\">argies.gr</a>";
+document.getElementById("dionysiou").innerHTML="";
+if ((resday==3)&&(resmonth==9)){
+document.getElementById("dionysiou").innerHTML="Γιορτή Αγίου Διονυσίου του Αρεοπαγίτου-Αργία Δικαστηρίων"
+}
+if ((resday==1)&&(resmonth==0)){
+document.getElementById("dionysiou").innerHTML="Πρωτοχρονιά-Δημόσια Αργία"
+}
+if ((resday==6)&&(resmonth==0)){
+document.getElementById("dionysiou").innerHTML="Θεοφάνεια-Δημόσια Αργία"
+}
+if ((resday==25)&&(resmonth==2)){
+document.getElementById("dionysiou").innerHTML="25η Μαρτίου-Ευαγγελισμός της Θεοτόκου-Δημόσια Αργία"
+}
+if ((resday==1)&&(resmonth==4)){
+document.getElementById("dionysiou").innerHTML="Πρωτομαγιά-Δημόσια Αργία"
+}
+if ((resday==15)&&(resmonth==8)){
+document.getElementById("dionysiou").innerHTML="Δεκαπενταύγουστος-Δημόσια Αργία"
+}
+if ((resday==28)&&(resmonth==9)){
+document.getElementById("dionysiou").innerHTML="Ημέρα του Όχι-Δημόσια Αργία"
+}
+if ((resday==25)&&(resmonth==11)){
+document.getElementById("dionysiou").innerHTML="Χριστούγεννα-Δημόσια Αργία-Προσοχή και 26/12 Δημόσια Αργία"
+}
+if ((resday==26)&&(resmonth==11)){
+document.getElementById("dionysiou").innerHTML="Σύναξη της Θεοτόκου-Δημόσια Αργία"
+}
+}
+
+
+
+function b() {
+let day=myForm.day.value
+day=Number(day)
+let month=myForm.month.value
+month=Number(month)
+if ((month>12)||(month<1)){
+    alert ("Άκυρος μήνας")
+    return 
+    }
+let year=myForm.year.value
+year=Number(year)
+let prothdays=myForm.prothdays.value
+prothdays=Number(prothdays)
+let prothmonths=myForm.prothmonths.value
+prothmonths=Number(prothmonths)
+let prothyears=myForm.prothyears.value
+prothyears=Number(prothyears)
+let resday
+let resmonth;
+let resyear;
+let res;
+let analytikaArr=[]
+let monthNames;
+let February
+if (year%4!==0) {February=[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28]}
+else if (year%100!==0) {February=[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29]}
+else if (year%400!==0) {February=[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28]}
+else {February=[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29]}
+monthNames=[January, February, March, April, May, June, July, August,September, October, November, December]
+resmonth=month-1;
+resday=monthNames[month-1][day-1];
+resyear=year;
+
+
+if ((day>monthNames[resmonth].length)||(day<1)){
+     alert ("Ακυρη μέρα")
+     return
+}
+if((prothdays>364)||(prothmonths>240)||(prothyears>100)){
+   alert ("Η προθεσμία είναι πολύ μεγάλη") 
+   return 
+}
+if((prothdays<0)||(prothmonths<0)||(prothyears<0)){
+   alert ("Άκυρη προθεσμία") 
+   return 
+}
+
+if ((year>2050)||(year<2000)){
+    alert ("Science Fiction Detected")
+    return
+}
+for (i=0;i<prothdays;i++){
+    if (resday<monthNames[resmonth].length){
+        resday+=1;
+analytikaArr.push("<li>"+" "+resday+" /"+(resmonth+1)+"/ "+resyear+"</li>")
+    }        
+        else {
+            if (resmonth<11){
+        resmonth=resmonth+1;
+        resday=1;
+        analytikaArr.push("<li><u><b>"+monthlist[resmonth]+"<br>"+ " "+resday+"/ "+(resmonth+1)+"/ "+resyear+"</u></b></li>")
+   
+                 }else{
+                    resyear++
+                    resmonth=0
+                    resday=1
+                    analytikaArr.push("<li><u><b>"+monthlist[resmonth]+"<br>"+ " "+resday+"/ "+(resmonth+1)+"/ "+resyear+"</u></b></li>")
+        
+                }   
+        }  
+if (resyear%4!==0) {monthNames[1]=[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28]}
+else if (resyear%100!==0) {monthNames[1]=[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29]}
+else if (resyear%400!==0) {monthNames[1]=[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28]}
+else {monthNames[1]=[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29]}   
+}
+resmonth+=prothmonths
+if (resmonth>12){
+    resyear+=Math.floor(resmonth/12);
+    resmonth=(resmonth%12);
+    }
+
+resyear+=prothyears
+
+
+if ((resday==29)&&(resmonth==1)){
+
+    if ((resyear%4!==0)&&(resyear%400!==0)){
+        resday=1
+        resmonth=2
+    }
+
+    }
+res=[resday,resmonth+1,resyear]
+var daylist=["Κυριακή (μη εργάσιμη)","Δευτέρα", "Τρίτη", "Τετάρτη", "Πέμπτη", "Παρασκευή", "Σάββατο (μη εργάσιμη)"]; 
+let d=new Date(resyear, resmonth, resday).getDay();
+document.getElementById("apotelesma").innerHTML ="Λήξη Προθεσμίας: "+ "<li>"+daylist[d]+" "+res.join("/")+ "</li>"; 
+document.getElementById("analytikahead").innerHTML="Αναλυτικά:"
+document.getElementById("analytika").innerHTML = analytikaArr.join("");
+document.getElementById("argies").innerHTML= "Για να δείτε τις κινητές αργίες του έτους "+ resyear + " επισκεφθείτε την ιστοσελίδα <a href=\"https://argies.gr\">argies.gr</a>";
+document.getElementById("dionysiou").innerHTML="";
+if ((resday==3)&&(resmonth==9)){
+document.getElementById("dionysiou").innerHTML="Γιορτή Αγίου Διονυσίου του Αρεοπαγίτου-Αργία Δικαστηρίων"
+}
+if ((resday==1)&&(resmonth==0)){
+document.getElementById("dionysiou").innerHTML="Πρωτοχρονιά-Δημόσια Αργία"
+}
+if ((resday==6)&&(resmonth==0)){
+document.getElementById("dionysiou").innerHTML="Θεοφάνεια-Δημόσια Αργία"
+}
+if ((resday==25)&&(resmonth==2)){
+document.getElementById("dionysiou").innerHTML="25η Μαρτίου-Ευαγγελισμός της Θεοτόκου-Δημόσια Αργία"
+}
+if ((resday==1)&&(resmonth==4)){
+document.getElementById("dionysiou").innerHTML="Πρωτομαγιά-Δημόσια Αργία"
+}
+if ((resday==15)&&(resmonth==8)){
+document.getElementById("dionysiou").innerHTML="Δεκαπενταύγουστος-Δημόσια Αργία"
+}
+if ((resday==28)&&(resmonth==9)){
+document.getElementById("dionysiou").innerHTML="Ημέρα του Όχι-Δημόσια Αργία"
+}
+if ((resday==25)&&(resmonth==11)){
+document.getElementById("dionysiou").innerHTML="Χριστούγεννα-Δημόσια Αργία-Προσοχή και 26/12 Δημόσια Αργία"
+}
+if ((resday==26)&&(resmonth==11)){
+document.getElementById("dionysiou").innerHTML="Σύναξη της Θεοτόκου-Δημόσια Αργία"
+}
+}
+
+function c() {
+let day=myForm.day.value
+day=Number(day)
+let month=myForm.month.value
+month=Number(month)
+if ((month>12)||(month<1)){
+    alert ("Άκυρος μήνας")
+    return 
+    }
+let year=myForm.year.value
+year=Number(year)
+let prothdays=myForm.prothdays.value
+prothdays=Number(prothdays)
+let prothmonths=myForm.prothmonths.value
+prothmonths=Number(prothmonths)
+let prothyears=myForm.prothyears.value
+prothyears=Number(prothyears)
+let resday
+let resmonth;
+let resyear;
+let res;
+let analytikaArr=[]
+let monthNames;
+let February
+if (year%4!==0) {February=[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28]}
+else if (year%100!==0) {February=[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29]}
+else if (year%400!==0) {February=[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28]}
+else {February=[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29]}
+monthNames=[January, February, March, April, May, June, July, August,September, October, November, December]
+resmonth=month-1;
+resday=monthNames[month-1][day-1];
+resyear=year;
+
+
+if ((day>monthNames[resmonth].length)||(day<1)){
+     alert ("Ακυρη μέρα")
+     return
+}
+if((prothdays>364)||(prothmonths>240)||(prothyears>100)){
+   alert ("Η προθεσμία είναι πολύ μεγάλη") 
+   return 
+}
+if((prothdays<0)||(prothmonths<0)||(prothyears<0)){
+   alert ("Άκυρη προθεσμία") 
+   return 
+}
+if ((year>2050)||(year<2000)){
+    alert ("Science Fiction Detected")
+    return
+}
+for (i=0;i<prothdays;i++){   
+    if ((resmonth==8)&&(resday<15)){
+                resday=16;
+                analytikaArr.push("<li><u><b>"+monthlist[resmonth]+"<br>"+ " "+resday+"/ "+(resmonth+1)+"/ "+resyear+"</u></b></li>")
+            
+    }
+    else {
+        if (resmonth==7){
+            resmonth=8
+            resday=16
+            analytikaArr.push("<li><u><b>"+monthlist[resmonth]+"<br>"+ " "+resday+"/ "+(resmonth+1)+"/ "+resyear+"</u></b></li>")
+        
+        }
+    else {
+        if (resmonth==6){
+            resmonth=8
+            resday=16
+            analytikaArr.push("<li><u><b>"+monthlist[resmonth]+"<br>"+ " "+resday+"/ "+(resmonth+1)+"/ "+resyear+"</u></b></li>")
+        }    
+        else {
+            if ((resday<monthNames[resmonth].length)&&(resmonth!==6)){
+        resday+=1;
+        analytikaArr.push("<li>"+" "+resday+" /"+(resmonth+1)+"/ "+resyear+"</li>")
+       
+    }
+            else{
+                if ((resmonth==5)&&(resday==30)){
+                    resmonth=8
+                    resday=16
+                    analytikaArr.push("<li><u><b>"+monthlist[resmonth]+"<br>"+ " "+resday+"/ "+(resmonth+1)+"/ "+resyear+"</u></b></li>")
+                }
+            else{
+                if ((resmonth<11)&&(resmonth!==6)&&(resmonth!==7)){
+                    resmonth+=1;
+                    resday=1;
+                   analytikaArr.push("<li><u><b>"+monthlist[resmonth]+"<br>"+ " "+resday+"/ "+(resmonth+1)+"/ "+resyear+"</u></b></li>")
+   
+                }
+                            else{
+                            resyear++
+                            resmonth=0
+                            resday=1
+                            analytikaArr.push("<li><u><b>"+monthlist[resmonth]+"<br>"+ " "+resday+"/ "+(resmonth+1)+"/ "+resyear+"</u></b></li>")
+                            }
+                }   
+            } 
+          }           
+        }  
+    }
+if (resyear%4!==0) {monthNames[1]=[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28]}
+else if (resyear%100!==0) {monthNames[1]=[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29]}
+else if (resyear%400!==0) {monthNames[1]=[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28]}
+else {monthNames[1]=[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29]}   
+}
+resmonth+=prothmonths
+if (resmonth>12){
+    resyear+=Math.floor(resmonth/12);
+    resmonth=(resmonth%12);
+    }
+if (resmonth==6){
+    resmonth=8
+}
+if (resmonth==7){
+    resmonth=8
+}
+
+if ((resmonth==8)&&(resday<16)){
+    resday=16;
+}
+resyear+=prothyears
+
+
+if ((resday==29)&&(resmonth==1)){
+
+    if ((resyear%4!==0)&&(resyear%400!==0)){
+        resday=1
+        resmonth=2
+    }
+
+    }
+
+res=[resday,resmonth+1,resyear]
+var daylist=["Κυριακή (μη εργάσιμη)","Δευτέρα", "Τρίτη", "Τετάρτη", "Πέμπτη", "Παρασκευή", "Σάββατο (μη εργάσιμη)"]
+let d=new Date(resyear, resmonth, resday).getDay();
+document.getElementById("apotelesma").innerHTML ="Λήξη Προθεσμίας: "+ "<li>"+daylist[d]+" "+res.join("/")+ "</li>"; 
+document.getElementById("analytikahead").innerHTML="Αναλυτικά:"
+document.getElementById("analytika").innerHTML = analytikaArr.join("");
+document.getElementById("argies").innerHTML= "Για να δείτε τις κινητές αργίες του έτους "+ resyear + " επισκεφθείτε την ιστοσελίδα <a href=\"https://argies.gr\">argies.gr</a>";
+document.getElementById("dionysiou").innerHTML="";
+if ((resday==3)&&(resmonth==9)){
+document.getElementById("dionysiou").innerHTML="Γιορτή Αγίου Διονυσίου του Αρεοπαγίτου-Αργία Δικαστηρίων"
+}
+if ((resday==1)&&(resmonth==0)){
+document.getElementById("dionysiou").innerHTML="Πρωτοχρονιά-Δημόσια Αργία"
+}
+if ((resday==6)&&(resmonth==0)){
+document.getElementById("dionysiou").innerHTML="Θεοφάνεια-Δημόσια Αργία"
+}
+if ((resday==25)&&(resmonth==2)){
+document.getElementById("dionysiou").innerHTML="25η Μαρτίου-Ευαγγελισμός της Θεοτόκου-Δημόσια Αργία"
+}
+if ((resday==1)&&(resmonth==4)){
+document.getElementById("dionysiou").innerHTML="Πρωτομαγιά-Δημόσια Αργία"
+}
+if ((resday==15)&&(resmonth==8)){
+document.getElementById("dionysiou").innerHTML="Δεκαπενταύγουστος-Δημόσια Αργία"
+}
+if ((resday==28)&&(resmonth==9)){
+document.getElementById("dionysiou").innerHTML="Ημέρα του Όχι-Δημόσια Αργία"
+}
+if ((resday==25)&&(resmonth==11)){
+document.getElementById("dionysiou").innerHTML="Χριστούγεννα-Δημόσια Αργία-Προσοχή και 26/12 Δημόσια Αργία"
+}
+if ((resday==26)&&(resmonth==11)){
+document.getElementById("dionysiou").innerHTML="Σύναξη της Θεοτόκου-Δημόσια Αργία"
+}
+}
+function ResetForm() {
+    document.getElementById("myForm").reset();
+    document.getElementById("apotelesma").innerHTML="";
+    document.getElementById("analytika").innerHTML="";
+    document.getElementById("dionysiou").innerHTML="";
+    document.getElementById("argies").innerHTML="";
+    document.getElementById("analytikahead").innerHTML="";
+    }
+       
+</script>
+</body>
+</html>
